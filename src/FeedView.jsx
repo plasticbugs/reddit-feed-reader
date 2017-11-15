@@ -28,20 +28,19 @@ class FeedView extends React.Component {
   renderImage(post) {
     let image;
     if(post.thumbnail && post.thumbnail.length > 7) {
-      image = <img className="thumbnail" src={post.thumbnail} />
+      image = <img className="thumbnail" src={post.thumbnail} />;
     } else {
-      image = <img className="thumbnail" src="./images/default.png" />
+      image = <img className="thumbnail" src="./images/default.png" />;
     }
     return image;
   }
 
   changeSortOrder(option) {
-    this.props.changeSortOrder(option.value)
+    this.props.changeSortOrder(option.value);
   }
 
   render() {
     return (
-      
       <div className="feed-view">
         <div className="sort-order">
           <span>Sort by</span> <Select
@@ -51,10 +50,8 @@ class FeedView extends React.Component {
             clearable={false}
           />
         </div>
-        
         <ul>
         {this.props.articles.map(post => {
-
             return (
               <li key={post.id} className="post">
                 <div className="post-score">{post.score}</div>
@@ -69,11 +66,11 @@ class FeedView extends React.Component {
                 </div>
               </li>
             );
-          })
+          });
         }
         </ul>
       </div>
-    )
+    );
   }
 }
 

@@ -5,7 +5,6 @@ import SubscribeFormView from './SubscribeFormView.jsx';
 import SubscribeListView from './SubscribeListView.jsx';
 
 class FeedContainer extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
