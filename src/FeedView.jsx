@@ -27,10 +27,6 @@ class FeedView extends React.Component {
     this.props.changeSortOrder(option.value);
   }
 
-  renderPost(post) {
-    return < PostView post={post} key={post.id} />;
-  }
-
   render() {
     return (
       <div className="feed-view">
@@ -44,7 +40,7 @@ class FeedView extends React.Component {
         </div>
         <ul>
         {this.props.posts.map(post => {
-            return this.renderPost(post);
+            return < PostView post={post} key={post.id} />;
           })
         }
         </ul>
