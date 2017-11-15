@@ -28,6 +28,6 @@ class SubscribeFormView extends React.Component {
       </form>
     );
   }
-}
+};
 
 module.exports = SubscribeFormView;
