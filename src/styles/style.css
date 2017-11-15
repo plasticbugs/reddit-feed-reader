@@ -77,10 +77,11 @@ input.submit-button:hover {
 }
 
 .flash-message {
-  color: #ff0055;
-  margin: 20px 0px;
-  border: 1px solid #ff005560;
+  color: #f05;
+  margin: 20px 0;
+  border: 1px solid #ff572245;
   padding: 4px;
+  border-radius: 5px;
 }
 
 .Select-control {
@@ -128,10 +129,6 @@ input.submit-button:hover {
 
 .subreddits li:last-child {
   margin-bottom: -10px;
-}
-
-.sub-list {
-
 }
 
 .list-header {

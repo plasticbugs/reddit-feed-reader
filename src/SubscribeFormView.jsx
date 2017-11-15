@@ -15,9 +15,11 @@ class SubscribeFormView extends React.Component {
   }
 
   handleFormSubmit(event) {
-    this.props.addNewSubreddit(this.state.inputField);
     event.preventDefault();
-    this.setState({inputField: ''});
+    if(this.state.inputField.length > 0) {
+      this.props.addNewSubreddit(this.state.inputField);
+      this.setState({inputField: ''});
+    }
   }
 
   render() {

@@ -51,6 +51,7 @@ class FeedContainer extends React.Component {
   }
 
   addNewSubreddit(subreddit) {
+    subreddit = subreddit.toLowerCase();
     this.setState({flash: null});
 
     if(this.state.subscriptions.length === 0 && subreddit !== 'news') {
@@ -82,13 +83,14 @@ class FeedContainer extends React.Component {
   }
 
   removeSubreddit(subreddit) {
+    subreddit = subreddit.toLowerCase();
     let subs = this.state.subscriptions;
     let index = subs.indexOf(subreddit);
     let subsCopy = subs.slice(0, index).concat(subs.slice(index+1, subs.length));
     
     let postsCopy = [];
     for(let i = 0; i < this.state.posts.length; i++) {
-      if(this.state.posts[i].subreddit !== subreddit) {
+      if(this.state.posts[i].subreddit.toLowerCase() !== subreddit) {
         postsCopy.push(this.state.posts[i]);
       }
     }
