@@ -1,6 +1,7 @@
 import React from 'react';
-import FeedView from './FeedView.jsx';
 import axios from 'axios';
+
+import FeedView from './FeedView.jsx';
 import SubscribeFormView from './SubscribeFormView.jsx';
 import SubscribeListView from './SubscribeListView.jsx';
 
@@ -9,7 +10,7 @@ class FeedContainer extends React.Component {
     super(props);
     this.state = {
       subscriptions: [],
-      articles: [],
+      posts: [],
       flash: null,
       sortOrder: 'score'
     };
@@ -23,11 +24,11 @@ class FeedContainer extends React.Component {
   }
 
   changeSortOrder(order) {
-    let postCopy = this.state.articles.slice();
+    let postCopy = this.state.posts.slice();
     postCopy.sort((a,b) => {
       return b[order] - a[order]
     })
-    this.setState({sortOrder: order, articles: postCopy});
+    this.setState({sortOrder: order, posts: postCopy});
   }
 
   getPostsForSub(subreddit) {
@@ -53,23 +54,22 @@ class FeedContainer extends React.Component {
     this.setState({flash: null});
 
     if(this.state.subscriptions.length === 0 && subreddit !== 'news') {
-      this.setState({articles: []})
+      this.setState({posts: []})
     }
     if(this.state.subscriptions.indexOf(subreddit) > -1 || 
-        (this.state.subscriptions.length === 0 && subreddit === 'news' && this.state.articles.length !== 0)) {
+        (this.state.subscriptions.length === 0 && subreddit === 'news' && this.state.posts.length !== 0)) {
       this.setState({flash: 'That subreddit has already been added'})
     } else {
       this.getPostsForSub(subreddit)
       .then(posts => {
-        console.log(posts);
-        let allPosts = this.state.articles.slice();
+        let allPosts = this.state.posts.slice();
         let allSubs = this.state.subscriptions.slice();
         allPosts = allPosts.concat(posts);
         allPosts.sort((a,b) => {
           return b[this.state.sortOrder] - a[this.state.sortOrder];
-        })
+        });
         allSubs.push(subreddit);
-        this.setState({articles: allPosts, subscriptions: allSubs});
+        this.setState({posts: allPosts, subscriptions: allSubs});
       })
       .catch(err => {
         if(this.state.subscriptions.length === 0) {
@@ -87,13 +87,12 @@ class FeedContainer extends React.Component {
     let subsCopy = subs.slice(0, index).concat(subs.slice(index+1, subs.length));
     
     let postsCopy = [];
-    for(let i = 0; i < this.state.articles.length; i++) {
-      if(this.state.articles[i].subreddit !== subreddit) {
-        console.log(this.state.articles[i].subreddit, subreddit)
-        postsCopy.push(this.state.articles[i]);
+    for(let i = 0; i < this.state.posts.length; i++) {
+      if(this.state.posts[i].subreddit !== subreddit) {
+        postsCopy.push(this.state.posts[i]);
       }
     }
-    this.setState({articles: postsCopy, subscriptions: subsCopy}, ()=> {
+    this.setState({posts: postsCopy, subscriptions: subsCopy}, ()=> {
       if(postsCopy.length === 0) {
         this.loadDefault('news');
       }
@@ -103,12 +102,17 @@ class FeedContainer extends React.Component {
   loadDefault(subreddit){
     this.getPostsForSub(subreddit)
     .then(posts => {
-      this.setState({articles: posts, flash: 'Showing default subreddit'});
+      this.setState({
+        posts: posts, 
+        flash: 'Showing default subreddit'
+      });
     })
   }
 
   showFlash() {
-    return <div className="flash-message">{this.state.flash}</div>
+    return <div className="flash-message">
+             {this.state.flash}
+           </div>
   }
 
   render() {
@@ -130,6 +134,6 @@ class FeedContainer extends React.Component {
       </div>
     );
   }
-}
+};
 
 module.exports = FeedContainer;
