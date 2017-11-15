@@ -13,7 +13,7 @@ You can either open the `dist/index.html` file in your browser or run the applic
 
 2. Navigate to the project root and run `yarn` to install all the project's dependencies.
 
-3. Build and run the server by running:
+3. Build the uglified JS and minified CSS and start the server by running:
 
 `yarn start`
 
