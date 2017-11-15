@@ -7,7 +7,7 @@ Create an application that aggregates Reddit subreddits utilizing the Reddit API
 
 You can either open the `dist/index.html` file in your browser or run the application via `serve` by following this short guide:
 
-1. To build the application from the source files, you will need Yarn installed:
+1. To build the application from the source files, you will need Yarn and Node.js installed:
 
 `brew install yarn`
 
