@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
-import javascriptTimeAgo from 'javascript-time-ago';
-javascriptTimeAgo.locale(require('javascript-time-ago/locales/en'));
+
+import PostView from './PostView.jsx';
 
 const SORTED_NAMES = {
   created: 'newest first',
@@ -17,26 +17,18 @@ for(let key in SORTED_NAMES) {
   })
 }
 
-const timeAgo = new javascriptTimeAgo('en-US');
-
 class FeedView extends React.Component {
   constructor(props) {
     super(props);
     this.changeSortOrder = this.changeSortOrder.bind(this);
   }
 
-  renderImage(post) {
-    let image;
-    if(post.thumbnail && post.thumbnail.length > 7) {
-      image = <img className="thumbnail" src={post.thumbnail} />;
-    } else {
-      image = <img className="thumbnail" src="./images/default.png" />;
-    }
-    return image;
-  }
-
   changeSortOrder(option) {
     this.props.changeSortOrder(option.value);
+  }
+
+  renderPost(post) {
+    return < PostView post={post} key={post.id} />;
   }
 
   render() {
@@ -51,27 +43,14 @@ class FeedView extends React.Component {
           />
         </div>
         <ul>
-        {this.props.articles.map(post => {
-            return (
-              <li key={post.id} className="post">
-                <div className="post-score">{post.score}</div>
-                {this.renderImage(post)}
-                <div className="post-info">
-                  <a href={post.url}>{post.title}</a>
-                  <div className="post-details">
-                    <p>Submitted {timeAgo.format(new Date(post.created_utc * 1000 ))} by <a href={`https://www.reddit.com/user/${post.author}`}>{post.author}</a> to <a href={`https://reddit.com/${post.subreddit_name_prefixed}`}>{post.subreddit_name_prefixed}</a></p>
-                    <p><a href={`https://reddit.com${post.permalink}`}>{post.num_comments} comments</a></p>
-                    
-                  </div>
-                </div>
-              </li>
-            );
-          });
+        {this.props.posts.map(post => {
+            return this.renderPost(post);
+          })
         }
         </ul>
       </div>
     );
   }
-}
+};
 
 module.exports = FeedView;
