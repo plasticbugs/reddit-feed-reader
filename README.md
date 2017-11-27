@@ -3,6 +3,9 @@
 ## Specification:
 Create an application that aggregates Reddit subreddits utilizing the Reddit API. The feed reader should display 'news' as the default subreddit if no subreddits have been added. The user should be able to add and remove subreddits. The app should update the list of posts as subreddits are added and removed.
 
+## Screenshot:
+![ScreenShot](/dist/images/reddit-demo.png)
+
 ## How to run this application:
 
 You can either open the `dist/index.html` file in your browser or run the application via `serve` by following this short guide:
